@@ -1,6 +1,6 @@
-package dev.andrylat.task1.paymentsystemidentifier;
+package dev.andrylat.task1.payment;
 
-public interface Identifier {
+public interface Resolver {
     
     PaymentSystem determinePaymentSystem(String input);
     

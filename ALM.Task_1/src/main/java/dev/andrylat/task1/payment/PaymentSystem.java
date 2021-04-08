@@ -1,4 +1,4 @@
-package dev.andrylat.task1.paymentsystemidentifier;
+package dev.andrylat.task1.payment;
 
 import java.util.Arrays;
 import java.util.List;

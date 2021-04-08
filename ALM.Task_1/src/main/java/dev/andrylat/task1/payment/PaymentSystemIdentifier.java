@@ -1,22 +1,19 @@
-package dev.andrylat.task1.paymentsystemidentifier;
+package dev.andrylat.task1.payment;
 
 import java.util.Optional;
 
-public class PaymentSystemIdentifier implements Identifier {
+public class PaymentSystemIdentifier implements Resolver {
     
     @Override
     public PaymentSystem determinePaymentSystem(String input) {
         PaymentSystem paymentSystem = null;
         
         for (PaymentSystem value : PaymentSystem.values()) {
-            int amountCheckValues = value.getPaymentSystemData().size();
             
-            for (int currentCheckValue = 1; currentCheckValue < amountCheckValues; currentCheckValue++) {
-                String checkNumbers = value.getPaymentSystemData().get(currentCheckValue);
-                
-                if (input.startsWith(checkNumbers)) {
+            for (String checkValue : value.getPaymentSystemData()) {
+                if (input.startsWith(checkValue)) {
                     paymentSystem = value;
-                }
+                }                
             }
         }
         validateForNull(paymentSystem);

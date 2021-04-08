@@ -5,14 +5,16 @@ import java.util.Scanner;
 
 import dev.andrylat.task1.cardvalidator.CardValidator;
 import dev.andrylat.task1.cardvalidator.Validator;
-import dev.andrylat.task1.paymentsystemidentifier.Identifier;
-import dev.andrylat.task1.paymentsystemidentifier.PaymentSystem;
-import dev.andrylat.task1.paymentsystemidentifier.PaymentSystemIdentifier;
+import dev.andrylat.task1.payment.Resolver;
+import dev.andrylat.task1.payment.PaymentSystem;
+import dev.andrylat.task1.payment.PaymentSystemIdentifier;
 
-public class UserInterface {
-    private Identifier paymentSystemIdentifier = new PaymentSystemIdentifier();
+public class UserInterface implements Dialogue{
+    
+    private Resolver paymentSystemIdentifier = new PaymentSystemIdentifier();
     private Validator cardValidator = new CardValidator();    
     
+    @Override
     public void showInputWindow() {
         try (Scanner scan = new Scanner(System.in)) {
             String userAnswer;
@@ -32,17 +34,15 @@ public class UserInterface {
     private StringBuilder checkCardNumber(String input) {
         StringBuilder resultMessage = new StringBuilder();
         
-        cardValidator.validate(input);
+        List<String> listErrors = cardValidator.validate(input);
         
-        List<String> amountErrors = cardValidator.validate(input);
-        
-        if (amountErrors.isEmpty()) {            
+        if (listErrors.isEmpty()) {            
             PaymentSystem paymentSystem = paymentSystemIdentifier.determinePaymentSystem(input);
             String paymentSystemName = paymentSystem.getPaymentSystemData().get(0);
-            
+                                   
             resultMessage.append("Card is valid. ").append("Payment system is ")
-                .append("\"").append(paymentSystemName).append("\"").append(".")
-                .append("\n");
+            .append("\"").append(paymentSystemName).append("\"").append(".")
+            .append("\n");                
             
         } else {            
             resultMessage.append("Card number is invalid.")
@@ -50,7 +50,7 @@ public class UserInterface {
                 .append("Errors:")
                 .append("\n");
             
-            for (String error : amountErrors) {
+            for (String error : listErrors) {
                 resultMessage.append("-> ").append(error).append("\n");                
             }
         }

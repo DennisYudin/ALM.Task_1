@@ -1,4 +1,4 @@
-package dev.andrylat.task1.paymentsystemidentifier;
+package dev.andrylat.task1.payment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class PaymentSystemIdentifierTest {
     
-    Identifier paymentSystemIdentifier = new PaymentSystemIdentifier();
+    Resolver paymentSystemIdentifier = new PaymentSystemIdentifier();
     
     @Test
     void checkCardNumber_ShouldReturnAmericanExpress_WhenInputIsCardNumber() {
