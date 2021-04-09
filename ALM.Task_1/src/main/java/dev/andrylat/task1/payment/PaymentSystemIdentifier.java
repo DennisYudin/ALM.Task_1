@@ -1,0 +1,20 @@
+package dev.andrylat.task1.payment;
+
+
+public class PaymentSystemIdentifier implements Resolver<PaymentSystem, String> {
+    
+    @Override
+    public PaymentSystem resolve(String input) {
+        
+        for (PaymentSystem value : PaymentSystem.values()) {
+            
+            for (String prefix : value.getPrefixes()) {
+                if (input.startsWith(prefix)) {                    
+                    return value;
+                }                
+            }
+        }        
+        throw new IllegalArgumentException("There is no such Payment System.");
+    }
+}
+
