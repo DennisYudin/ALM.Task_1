@@ -1,30 +1,20 @@
 package dev.andrylat.task1.payment;
 
-import java.util.Optional;
 
-public class PaymentSystemIdentifier implements Resolver {
+public class PaymentSystemIdentifier implements Resolver<PaymentSystem, String> {
     
     @Override
-    public PaymentSystem determinePaymentSystem(String input) {
-        PaymentSystem paymentSystem = null;
+    public PaymentSystem resolve(String input) {
         
         for (PaymentSystem value : PaymentSystem.values()) {
             
-            for (String checkValue : value.getPaymentSystemData()) {
-                if (input.startsWith(checkValue)) {
-                    paymentSystem = value;
+            for (String prefix : value.getPrefixes()) {
+                if (input.startsWith(prefix)) {                    
+                    return value;
                 }                
             }
-        }
-        validateForNull(paymentSystem);
-        
-        return paymentSystem;
-    }
-    
-    private void validateForNull(PaymentSystem input) {
-        Optional.ofNullable(input).orElseThrow(() -> {
-            throw new IllegalArgumentException("Value is null");
-        });
+        }        
+        throw new IllegalArgumentException("There is no such Payment System.");
     }
 }
 

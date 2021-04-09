@@ -12,14 +12,20 @@ public enum PaymentSystem {
     MASTERCARD("Mastercard", "5"),
     DISCOVER("Discover", "6");
     
-    private List<String> paymentSystemData;
-        
-    public List<String> getPaymentSystemData() {
-        return paymentSystemData;
+    private String name;
+    private List<String> prefixes;
+    
+    public String getName() {
+        return name;
     }
-
-    private PaymentSystem(String... paymentSystems) {
-        this.paymentSystemData = Arrays.asList(paymentSystems);
+    
+    public List<String> getPrefixes() {
+        return prefixes;
+    }
+    
+    private PaymentSystem(String name, String... prefixes) {
+        this.name = name;
+        this.prefixes = Arrays.asList(prefixes);
     }    
 }
 

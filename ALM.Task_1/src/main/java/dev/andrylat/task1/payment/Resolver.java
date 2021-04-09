@@ -1,8 +1,8 @@
 package dev.andrylat.task1.payment;
 
-public interface Resolver {
+public interface Resolver<K,T> {
     
-    PaymentSystem determinePaymentSystem(String input);
+    K resolve(T input);    
     
 }
 

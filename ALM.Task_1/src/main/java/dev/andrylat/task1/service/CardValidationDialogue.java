@@ -9,13 +9,13 @@ import dev.andrylat.task1.payment.Resolver;
 import dev.andrylat.task1.payment.PaymentSystem;
 import dev.andrylat.task1.payment.PaymentSystemIdentifier;
 
-public class UserInterface implements Dialogue{
+public class CardValidationDialogue implements Dialogue {
     
-    private Resolver paymentSystemIdentifier = new PaymentSystemIdentifier();
+    private Resolver<PaymentSystem, String> paymentSystemIdentifier = new PaymentSystemIdentifier();
     private Validator cardValidator = new CardValidator();    
     
     @Override
-    public void showInputWindow() {
+    public void start() {
         try (Scanner scan = new Scanner(System.in)) {
             String userAnswer;
             do {
@@ -24,7 +24,7 @@ public class UserInterface implements Dialogue{
                 
                 System.out.println(checkCardNumber(userInput));                
                 
-                System.out.println("Enter [yes] if you try again");
+                System.out.println("Enter [yes] if you want to try again");
                 System.out.print("Answer: ");
                 userAnswer = scan.nextLine().toLowerCase();
             } while ("yes".equals(userAnswer));
@@ -37,8 +37,8 @@ public class UserInterface implements Dialogue{
         List<String> listErrors = cardValidator.validate(input);
         
         if (listErrors.isEmpty()) {            
-            PaymentSystem paymentSystem = paymentSystemIdentifier.determinePaymentSystem(input);
-            String paymentSystemName = paymentSystem.getPaymentSystemData().get(0);
+            PaymentSystem paymentSystem = paymentSystemIdentifier.resolve(input);
+            String paymentSystemName = paymentSystem.getName();
                                    
             resultMessage.append("Card is valid. ").append("Payment system is ")
             .append("\"").append(paymentSystemName).append("\"").append(".")
