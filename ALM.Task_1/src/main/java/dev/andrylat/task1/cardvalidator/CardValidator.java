@@ -5,6 +5,12 @@ import java.util.List;
 
 public class CardValidator implements Validator {
     private static final String SYMBOL_SPACE = "\\s+";
+    private static final int CARD_LENGTH = 16;
+    private static final int MAX_EVEN_NUMBER = 9;
+    private static final String REGEX_CARD_NUMBER = "[0-9]+";
+    private static final String LENGTH_ERROR_MESSAGE = "Length should be 16 symbols";
+    private static final String DIGITS_ERROR_MESSAGE = "Number should contain only digits";
+    private static final String PAYMENT_SYSTEM_ERROR_MESSAGE = "Payment system can't be determine";
     
     @Override
     public List<String> validate(String cardNumber) {
@@ -20,36 +26,28 @@ public class CardValidator implements Validator {
     }
     
     private List<String> validateForLength(String input) {
-        List<String> listErrors = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
         
-        int cardLength = 16;
-        String errorMessage = "Length should be 16 symbols";
-        
-        if (input.length() != cardLength) {
-            listErrors.add(errorMessage);
+        if (input.length() != CARD_LENGTH) {
+            errors.add(LENGTH_ERROR_MESSAGE);
         }
-        return listErrors;
+        return errors;
     }
     
     private List<String> validateForDigits(String input) {
-        List<String> listErrors = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
         
-        String regexCardNumber = "[0-9]+";
-        String errorMessage = "Number should contain only digits";
-        
-        if (!input.matches(regexCardNumber)) {
-            listErrors.add(errorMessage);
+        if (!input.matches(REGEX_CARD_NUMBER)) {
+            errors.add(DIGITS_ERROR_MESSAGE);
         }
-        return listErrors;
+        return errors;
     }
     
     private List<String> validateForLuhnAlgorithm(String input) {
-        List<String> listErrors = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
         
         int totalSum = 0;
         int numberCardLength = input.length();
-        int maxEvenNumber = 9;
-        String errorMessage = "Payment system can't be determine";
         
         for (int positionNumber = 0; positionNumber < numberCardLength; positionNumber++) {
             char number = input.charAt(positionNumber);
@@ -61,7 +59,7 @@ public class CardValidator implements Validator {
             } else {
                 calculationResult = currentNumber * 2;
                 
-                if (calculationResult > maxEvenNumber) {
+                if (calculationResult > MAX_EVEN_NUMBER) {
                     calculationResult -= 9;
                     totalSum += calculationResult;
                 } else {
@@ -70,9 +68,9 @@ public class CardValidator implements Validator {
             }
         }
         if (totalSum % 10 != 0) {
-            listErrors.add(errorMessage);
+            errors.add(PAYMENT_SYSTEM_ERROR_MESSAGE);
         }
-        return listErrors;
+        return errors;
     }
 }
 
