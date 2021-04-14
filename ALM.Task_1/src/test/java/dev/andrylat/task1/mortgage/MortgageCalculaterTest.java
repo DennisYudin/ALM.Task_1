@@ -1,14 +1,11 @@
 
-package mortgage;
+package dev.andrylat.task1.mortgage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.NumberFormat;
 
 import org.junit.jupiter.api.Test;
-
-import dev.andrylat.task1.mortgage.Mortgage;
-import dev.andrylat.task1.mortgage.MortgageCalculater;
 
 class MortgageCalculaterTest {
     Mortgage mortgage = new MortgageCalculater();
