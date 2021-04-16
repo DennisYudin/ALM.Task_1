@@ -1,10 +1,12 @@
 package dev.andrylat.task1.mortgage;
 
-public class MortgageCalculater implements Mortgage {    
+import dev.andrylat.task1.common.Loan;
+
+public class MortgageCalculater implements Loan {    
     private static final byte PERCENT = 100;
     private static final byte MONTHS_IN_YEAR = 12;
-    private static final byte MIN_VALUE = 1;
-    private static final byte MAX_VALUE = 30;
+    private static final byte MIN_ALLOWED_VALUE = 1;
+    private static final byte MAX_ALLOWED_VALUE = 30;
     private static final int MIN_PRINCIPAL_VALUE = 1_000;
     private static final int MAX_PRINCIPAL_VALUE = 100_000_000;    
     
@@ -23,7 +25,7 @@ public class MortgageCalculater implements Mortgage {
     }
     
     private float getMonthlyInterest(float annualInterestRate) {
-        validateInputValue(annualInterestRate, MIN_VALUE, MAX_VALUE);
+        validateInputValue(annualInterestRate, MIN_ALLOWED_VALUE, MAX_ALLOWED_VALUE);
 
         float monthlyInterest = annualInterestRate / PERCENT / MONTHS_IN_YEAR;
         
@@ -31,7 +33,7 @@ public class MortgageCalculater implements Mortgage {
     }
     
     private short getNumberOfPayments(short amountYears) {        
-        validateInputValue(amountYears, MIN_VALUE, MAX_VALUE);
+        validateInputValue(amountYears, MIN_ALLOWED_VALUE, MAX_ALLOWED_VALUE);
         
         short numberOfPayments = (short) (amountYears * MONTHS_IN_YEAR);
         
@@ -40,7 +42,7 @@ public class MortgageCalculater implements Mortgage {
     
     private void validateInputValue(float input, double min, double max) {
         if (input < min || input > max) {
-            throw new IllegalArgumentException("Enter a value between " + min + " and " + max);
+            throw new IllegalArgumentException("You should enter a value between " + min + " and " + max);
         }
     }
 }

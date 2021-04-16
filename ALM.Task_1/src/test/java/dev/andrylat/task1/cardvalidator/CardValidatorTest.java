@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import dev.andrylat.task1.common.Validator;
+
 class CardValidatorTest {
     
     Validator cardValidator = new CardValidator();
@@ -14,10 +16,10 @@ class CardValidatorTest {
         
         StringBuilder expected = new StringBuilder();
         
-        expected.append("Card number is invalid.").append("\n");
-        expected.append("Errors:").append("\n");
-        expected.append("-> Length should be 16 symbols").append("\n");
-        expected.append("-> Payment system can't be determine").append("\n");
+        expected.append("Card number is invalid.\n"
+                + "Errors:\n"
+                + "-> Length should be 16 symbols\n"
+                + "-> Payment system can't be determine\n");
         
         StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
         
@@ -30,10 +32,10 @@ class CardValidatorTest {
         
         StringBuilder expected = new StringBuilder();
         
-        expected.append("Card number is invalid.").append("\n");
-        expected.append("Errors:").append("\n");
-        expected.append("-> Length should be 16 symbols").append("\n");
-        expected.append("-> Payment system can't be determine").append("\n");
+        expected.append("Card number is invalid.\n"
+                + "Errors:\n"
+                + "-> Length should be 16 symbols\n"
+                + "-> Payment system can't be determine\n");        
         
         StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
         
@@ -46,11 +48,11 @@ class CardValidatorTest {
         
         StringBuilder expected = new StringBuilder();
         
-        expected.append("Card number is invalid.").append("\n");
-        expected.append("Errors:").append("\n");
-        expected.append("-> Number should contain only digits").append("\n");
-        expected.append("-> Payment system can't be determine").append("\n");
-        
+        expected.append("Card number is invalid.\n"
+                + "Errors:\n"
+                + "-> Number should contain only digits\n"
+                + "-> Payment system can't be determine\n");
+                
         StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
         
         assertEquals(expected.toString(), actual.toString());
@@ -62,12 +64,12 @@ class CardValidatorTest {
         
         StringBuilder expected = new StringBuilder();
         
-        expected.append("Card number is invalid.").append("\n");
-        expected.append("Errors:").append("\n");
-        expected.append("-> Length should be 16 symbols").append("\n");
-        expected.append("-> Number should contain only digits").append("\n");
-        expected.append("-> Payment system can't be determine").append("\n");
-        
+        expected.append("Card number is invalid.\n"
+                + "Errors:\n"
+                + "-> Length should be 16 symbols\n"
+                + "-> Number should contain only digits\n"
+                + "-> Payment system can't be determine\n");
+                
         StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
         
         assertEquals(expected.toString(), actual.toString());
@@ -79,9 +81,9 @@ class CardValidatorTest {
         
         StringBuilder expected = new StringBuilder();
         
-        expected.append("Card number is invalid.").append("\n");
-        expected.append("Errors:").append("\n");
-        expected.append("-> Payment system can't be determine").append("\n");
+        expected.append("Card number is invalid.\n"
+                + "Errors:\n"
+                + "-> Payment system can't be determine\n");
         
         StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
         
@@ -93,8 +95,8 @@ class CardValidatorTest {
         String cardNumber = "3657 4070 2667 6426";
         
         StringBuilder expected = new StringBuilder();
-        
-        expected.append("Card is valid. Payment system is \"Diners club\".").append("\n");
+                
+        expected.append("Card is valid. Payment system is \"Diners club\".\n");
         
         StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
         

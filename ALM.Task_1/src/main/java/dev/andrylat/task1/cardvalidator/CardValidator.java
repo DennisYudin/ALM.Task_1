@@ -3,12 +3,14 @@ package dev.andrylat.task1.cardvalidator;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.andrylat.task1.common.Resolver;
+import dev.andrylat.task1.common.Validator;
 import dev.andrylat.task1.payment.PaymentSystem;
-import dev.andrylat.task1.payment.PaymentSystemIdentifier;
-import dev.andrylat.task1.payment.Resolver;
+import dev.andrylat.task1.payment.PaymentSystemResolver;
 
 public class CardValidator implements Validator {
-    private Resolver<PaymentSystem, String> paymentSystemIdentifier = new PaymentSystemIdentifier();
+    
+    private Resolver<PaymentSystem, String> paymentSystemResolver = new PaymentSystemResolver();
     
     private static final String SYMBOL_SPACE = "\\s+";
     private static final int CARD_LENGTH = 16;
@@ -16,7 +18,7 @@ public class CardValidator implements Validator {
     private static final String REGEX_CARD_NUMBER = "[0-9]+";
     private static final String LENGTH_ERROR_MESSAGE = "Length should be 16 symbols";
     private static final String DIGITS_ERROR_MESSAGE = "Number should contain only digits";
-    private static final String PAYMENT_SYSTEM_ERROR_MESSAGE = "Payment system can't be determine";
+    private static final String PAYMENT_SYSTEM_ERROR_MESSAGE = "Payment system can't be determine";    
     
     @Override
     public StringBuilder checkCardNumber(String input) {
@@ -25,7 +27,7 @@ public class CardValidator implements Validator {
         List<String> listErrors = validate(input);
         
         if (listErrors.isEmpty()) {            
-            PaymentSystem paymentSystem = paymentSystemIdentifier.resolve(input);
+            PaymentSystem paymentSystem = paymentSystemResolver.resolve(input);
             String paymentSystemName = paymentSystem.getName();
                                    
             resultMessage.append("Card is valid. ").append("Payment system is ")
@@ -44,7 +46,7 @@ public class CardValidator implements Validator {
         }
         return resultMessage;
     }
-    
+       
     private List<String> validate(String cardNumber) {
         List<String> validateResultMessages = new ArrayList<>();
         

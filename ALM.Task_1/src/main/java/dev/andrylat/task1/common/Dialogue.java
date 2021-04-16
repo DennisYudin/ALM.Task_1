@@ -1,8 +1,10 @@
-package dev.andrylat.task1.service;
+package dev.andrylat.task1.common;
+
+import java.util.Scanner;
 
 public interface Dialogue {
     
-    void start();
+    void start(Scanner scanner);
         
 }
 

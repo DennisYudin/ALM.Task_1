@@ -1,6 +1,6 @@
-package dev.andrylat.task1.mortgage;
+package dev.andrylat.task1.common;
 
-public interface Mortgage {
+public interface Loan {
     
     double сalculate(int principal, float annualInterest, byte years);
 

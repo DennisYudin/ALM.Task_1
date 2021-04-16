@@ -1,4 +1,5 @@
-package dev.andrylat.task1.cardvalidator;
+package dev.andrylat.task1.common;
+
 
 public interface Validator {
     

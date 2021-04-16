@@ -7,8 +7,10 @@ import java.text.NumberFormat;
 
 import org.junit.jupiter.api.Test;
 
+import dev.andrylat.task1.common.Loan;
+
 class MortgageCalculaterTest {
-    Mortgage mortgage = new MortgageCalculater();
+    Loan mortgage = new MortgageCalculater();
     
     @Test
     void calculate_ShouldCalculateMonthlyMortgagePayment_WhenInputIsPrincipalAnnualInterestAndYears() {

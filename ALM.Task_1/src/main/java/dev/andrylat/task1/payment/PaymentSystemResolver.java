@@ -1,7 +1,8 @@
 package dev.andrylat.task1.payment;
 
+import dev.andrylat.task1.common.Resolver;
 
-public class PaymentSystemIdentifier implements Resolver<PaymentSystem, String> {
+public class PaymentSystemResolver implements Resolver<PaymentSystem, String> {
     
     @Override
     public PaymentSystem resolve(String input) {

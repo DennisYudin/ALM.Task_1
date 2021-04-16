@@ -1,4 +1,4 @@
-package dev.andrylat.task1.payment;
+package dev.andrylat.task1.common;
 
 public interface Resolver<K,T> {
     
