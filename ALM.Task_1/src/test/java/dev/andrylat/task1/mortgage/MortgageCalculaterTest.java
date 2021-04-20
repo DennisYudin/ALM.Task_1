@@ -7,10 +7,8 @@ import java.text.NumberFormat;
 
 import org.junit.jupiter.api.Test;
 
-import dev.andrylat.task1.common.Loan;
-
 class MortgageCalculaterTest {
-    Loan mortgage = new MortgageCalculater();
+    Loan mortgage = new MortgageCalculator();
     
     @Test
     void calculate_ShouldCalculateMonthlyMortgagePayment_WhenInputIsPrincipalAnnualInterestAndYears() {
@@ -37,7 +35,7 @@ class MortgageCalculaterTest {
         Throwable exception = assertThrows(IllegalArgumentException.class,
                 () -> mortgage.сalculate(principal, annualInterest, years));
         
-        String expected = "Enter a value between 1000.0 and 1.0E8";
+        String expected = "You should enter a value between 1000.0 and 1.0E8";
         String actual = exception.getMessage();
         
         assertEquals(expected, actual);
@@ -53,7 +51,7 @@ class MortgageCalculaterTest {
         Throwable exception = assertThrows(IllegalArgumentException.class,
                 () -> mortgage.сalculate(principal, annualInterest, years));
         
-        String expected = "Enter a value between 1000.0 and 1.0E8";
+        String expected = "You should enter a value between 1000.0 and 1.0E8";
         String actual = exception.getMessage();
         
         assertEquals(expected, actual);
@@ -69,7 +67,7 @@ class MortgageCalculaterTest {
         Throwable exception = assertThrows(IllegalArgumentException.class,
                 () -> mortgage.сalculate(principal, annualInterest, years));
         
-        String expected = "Enter a value between 1.0 and 30.0";
+        String expected = "You should enter a value between 1.0 and 30.0";
         String actual = exception.getMessage();
         
         assertEquals(expected, actual);
@@ -85,7 +83,7 @@ class MortgageCalculaterTest {
         Throwable exception = assertThrows(IllegalArgumentException.class,
                 () -> mortgage.сalculate(principal, annualInterest, years));
         
-        String expected = "Enter a value between 1.0 and 30.0";
+        String expected = "You should enter a value between 1.0 and 30.0";
         String actual = exception.getMessage();
         
         assertEquals(expected, actual);

@@ -1,16 +1,20 @@
 package dev.andrylat.task1;
 
-import dev.andrylat.task1.common.Window;
-import dev.andrylat.task1.service.StartWindow;
+import java.util.Scanner;
 
-public class CardValidatorApp {
+import dev.andrylat.task1.service.Dialogue;
+import dev.andrylat.task1.service.InitialAppDialogue;
+
+public class Application {
     
     public static void main(String[] args) {       
         
-        Window startWindow = new StartWindow();
+        Dialogue initialAppDialogue = new InitialAppDialogue();
         
-        startWindow.start();
-                             
+        try (Scanner scan = new Scanner(System.in)) {
+            
+            initialAppDialogue.start(scan);        
+        }                                   
     }
 }
 

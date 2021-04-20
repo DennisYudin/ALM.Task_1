@@ -6,56 +6,51 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import dev.andrylat.task1.common.Dialogue;
-import dev.andrylat.task1.common.Window;
-
-public class StartWindow implements Window {
+public class InitialAppDialogue implements Dialogue {
+    private static final String GREETING_MESSAGE = "Please choose a letter what do you want to do my Lord: \n";
+    private static final String HYPHEN_SYMBOL = "-------------------------------------------------------------\n";
+    private static final String FIRST_OPTION = "'a' if you want to check your card number \n";
+    private static final String SECOND_OPTION = "'b' if you want to calculate your monthly mortgage payment \n";
+    private static final String USER_CHOICE = "Your choice my Lord: ";
+    private static final String REPEAT_MESSAGE = "Enter [yes] if you want to try again";
+    private static final String USER_ANSWER = "Answer: ";
     
-    @Override    
-    public void start() {
-        try (Scanner scan = new Scanner(System.in)) {
-            String userAnswer;
-            do {
-                System.out.print("Please choose a letter what do you want to do my Lord: \n"
-                        + "'a' if you want to check your card number \n"
-                        + "'b' if you want to calculate your monthly mortgage payment \n"
-                        + "-------------------------------------------------------------\n"
-                        + "Your choice my Lord: ");
-                
-                String userChoice = scan.nextLine().toLowerCase();
-                
-                validateUserAnswer(userChoice);
-                
-                Map<String, Dialogue> dialogs = initCommands();
-                                
-                dialogs.get(userChoice).start(scan);
-                
-                System.out.println("Enter [yes] if you want to try again");
-                System.out.print("Answer: "); 
-                
-                userAnswer = scan.nextLine().toLowerCase();
-                System.out.println(); 
-                
-            } while ("yes".equals(userAnswer));
-        }
-    }
-    
-    private Map<String, Dialogue> initCommands() {
-        
-        Map<String, Dialogue> dialogs = new HashMap<>();
-        
+    private Map<String, Dialogue> dialogs = new HashMap<>();
+    {        
         dialogs.put("a", new CardValidationDialogue());
-        dialogs.put("b", new MortgageCalculaterDialogue());
-        
-        return dialogs;
+        dialogs.put("b", new MortgageCalculatorDialogue());
     }
+    
+    @Override
+    public void start(Scanner scan) {
+        String userAnswer;
+        do {
+            System.out.print(GREETING_MESSAGE 
+                    + FIRST_OPTION 
+                    + SECOND_OPTION 
+                    + HYPHEN_SYMBOL 
+                    + USER_CHOICE);
+            
+            String userChoice = scan.nextLine().toLowerCase();
+            
+            validateUserAnswer(userChoice);            
+            
+            dialogs.get(userChoice).start(scan);
+            
+            System.out.println(REPEAT_MESSAGE);
+            System.out.print(USER_ANSWER);
+            
+            userAnswer = scan.nextLine().toLowerCase();
+            System.out.println();
+            
+        } while ("yes".equals(userAnswer));
+    }     
     
     private void validateUserAnswer(String input) {
         
         List<String> options = new ArrayList<>();
         
-        options.add("a");
-        options.add("b");
+        options.addAll(dialogs.keySet());
         
         if (!options.contains(input)) {
             throw new IllegalArgumentException("Incorrect input.");

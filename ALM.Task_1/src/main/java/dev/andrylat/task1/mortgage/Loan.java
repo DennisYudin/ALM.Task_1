@@ -1,4 +1,4 @@
-package dev.andrylat.task1.common;
+package dev.andrylat.task1.mortgage;
 
 public interface Loan {
     

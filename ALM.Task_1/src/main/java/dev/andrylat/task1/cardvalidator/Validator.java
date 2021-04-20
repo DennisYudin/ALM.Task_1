@@ -1,9 +1,10 @@
-package dev.andrylat.task1.common;
+package dev.andrylat.task1.cardvalidator;
 
+import java.util.List;
 
 public interface Validator {
     
-    StringBuilder checkCardNumber(String input);
+    List<String> validate(String cardNumber);
 
 }
 

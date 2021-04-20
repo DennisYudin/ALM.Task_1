@@ -2,9 +2,10 @@ package dev.andrylat.task1.cardvalidator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.List;
 
-import dev.andrylat.task1.common.Validator;
+import org.junit.jupiter.api.Test;
 
 class CardValidatorTest {
     
@@ -14,93 +15,79 @@ class CardValidatorTest {
     void validate_ShouldReturnMessagesAboutInappropriateLengthAndUndefinedPaymentSystem_WhenInputIsCardNumberWithLessThen16Numbers() {
         String cardNumber = "1234 1234 1234 123";
         
-        StringBuilder expected = new StringBuilder();
+        List<String> expected = new ArrayList<>();
         
-        expected.append("Card number is invalid.\n"
-                + "Errors:\n"
-                + "-> Length should be 16 symbols\n"
-                + "-> Payment system can't be determine\n");
+        expected.add("Length should be 16 symbols");
+        expected.add("Payment system can't be determine");
         
-        StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
+        List<String> actual = cardValidator.validate(cardNumber);
         
-        assertEquals(expected.toString(), actual.toString());
+        assertEquals(expected, actual);
     }
     
     @Test
     void validate_ShouldReturnMessagesAboutInappropriateLengthAndUndefinedPaymentSystem_WhenInputIsCardNumberWithMoreThen16Numbers() {
         String cardNumber = "1234 1234 1234 1234 1";
         
-        StringBuilder expected = new StringBuilder();
+        List<String> expected = new ArrayList<>();
         
-        expected.append("Card number is invalid.\n"
-                + "Errors:\n"
-                + "-> Length should be 16 symbols\n"
-                + "-> Payment system can't be determine\n");        
+        expected.add("Length should be 16 symbols");
+        expected.add("Payment system can't be determine");
         
-        StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
+        List<String> actual = cardValidator.validate(cardNumber);
         
-        assertEquals(expected.toString(), actual.toString());
+        assertEquals(expected, actual);
     }
     
     @Test
     void validate_ShouldReturnMessagesNumberShouldContainOnlyDigitsAndUndefinedPaymentSystem_WhenInputIsCardNumberIsSpecialSymbols() {
         String cardNumber = "%%%% #### @@@@ ****";
         
-        StringBuilder expected = new StringBuilder();
+        List<String> expected = new ArrayList<>();
         
-        expected.append("Card number is invalid.\n"
-                + "Errors:\n"
-                + "-> Number should contain only digits\n"
-                + "-> Payment system can't be determine\n");
-                
-        StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
+        expected.add("Number should contain only digits");
+        expected.add("Payment system can't be determine");
         
-        assertEquals(expected.toString(), actual.toString());
+        List<String> actual = cardValidator.validate(cardNumber);
+        
+        assertEquals(expected, actual);
     }
     
     @Test
     void validate_ShouldReturnMessagesAboutLengthAndDigitsAndUndefinedPaymentSystem_WhenInputIsCardNumberOfRandomSetCharacters() {
         String cardNumber = "1234xzyq1111";
         
-        StringBuilder expected = new StringBuilder();
+        List<String> expected = new ArrayList<>();
         
-        expected.append("Card number is invalid.\n"
-                + "Errors:\n"
-                + "-> Length should be 16 symbols\n"
-                + "-> Number should contain only digits\n"
-                + "-> Payment system can't be determine\n");
-                
-        StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
+        expected.add("Length should be 16 symbols");
+        expected.add("Number should contain only digits");
+        expected.add("Payment system can't be determine");
         
-        assertEquals(expected.toString(), actual.toString());
+        List<String> actual = cardValidator.validate(cardNumber);
+        
+        assertEquals(expected, actual);
     }
     
     @Test
     void validate_ShouldReturnMessageAboutUndefinedPaymentSystem_WhenInputIsNonExistCardNumber() {
         String cardNumber = "1569 9900 1009 5841";
         
-        StringBuilder expected = new StringBuilder();
+        List<String> expected = new ArrayList<>();
         
-        expected.append("Card number is invalid.\n"
-                + "Errors:\n"
-                + "-> Payment system can't be determine\n");
+        expected.add("Payment system can't be determine");
         
-        StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
+        List<String> actual = cardValidator.validate(cardNumber);
         
-        assertEquals(expected.toString(), actual.toString());
+        assertEquals(expected, actual);
     }
     
     @Test
-    void validate_ShouldReturnMessageAboutCardIsValid_WhenInputIsCorrectCardNumber() {
+    void validate_ShouldReturnEmptyList_WhenInputIsCorrectCardNumber() {
         String cardNumber = "3657 4070 2667 6426";
         
-        StringBuilder expected = new StringBuilder();
-                
-        expected.append("Card is valid. Payment system is \"Diners club\".\n");
+        List<String> actual = cardValidator.validate(cardNumber);
         
-        StringBuilder actual = cardValidator.checkCardNumber(cardNumber);
-        
-        assertEquals(expected.toString(), actual.toString());
+        assertTrue(actual.isEmpty());
     }
 }
 

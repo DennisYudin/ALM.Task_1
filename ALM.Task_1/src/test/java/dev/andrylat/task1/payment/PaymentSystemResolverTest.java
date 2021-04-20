@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import dev.andrylat.task1.common.Resolver;
-
 class PaymentSystemResolverTest {
     
     Resolver<PaymentSystem, String> paymentSystemResolver = new PaymentSystemResolver();
