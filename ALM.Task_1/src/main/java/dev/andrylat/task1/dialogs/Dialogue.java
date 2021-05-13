@@ -1,4 +1,4 @@
-package dev.andrylat.task1.service;
+package dev.andrylat.task1.dialogs;
 
 import java.util.Scanner;
 

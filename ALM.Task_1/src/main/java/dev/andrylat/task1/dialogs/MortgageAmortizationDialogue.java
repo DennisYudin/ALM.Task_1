@@ -3,13 +3,15 @@ package dev.andrylat.task1.dialogs;
 import java.text.NumberFormat;
 import java.util.Scanner;
 
+import dev.andrylat.task1.amortization.Amortization;
+import dev.andrylat.task1.amortization.MortgageAmortization;
 import dev.andrylat.task1.console.Console;
 import dev.andrylat.task1.mortgage.Loan;
 import dev.andrylat.task1.mortgage.MortgageCalculator;
 
-public class MortgageCalculatorDialogue implements Dialogue {
-    private static final String TITLE_MESSAGE = "MORTGAGE";
-    private static final String HYPHEN_SYMBOL = "--------";
+public class MortgageAmortizationDialogue implements Dialogue {
+    private static final String TITLE_MESSAGE = "MORTGAGE AMORTIZATION";
+    private static final String HYPHEN_SYMBOL = "---------------------";
     private static final String PRINCIPAL_MESSAGE = "Principal (enter value from 1K up to 100M): ";
     private static final String ANNUAL_INTEREST_MESSAGE = "Annual interest rate (enter value from 1 up to 30): ";
     private static final String PERIOD_MESSAGE = "Period (Years) (enter value from 1 up to 30): ";
@@ -18,11 +20,12 @@ public class MortgageCalculatorDialogue implements Dialogue {
     private static final byte MIN_ALLOWED_VALUE = 1;
     private static final byte MAX_ALLOWED_VALUE = 30;
     private static final int MIN_PRINCIPAL_VALUE = 1_000;
-    private static final int MAX_PRINCIPAL_VALUE = 100_000_000; 
+    private static final int MAX_PRINCIPAL_VALUE = 100_000_000;  
     
     private Loan mortgage = new MortgageCalculator();
+    private Amortization mortgageAmortization = new MortgageAmortization();
     private Console console = new Console();
-
+    
     @Override
     public void start(Scanner scanner) {
         
@@ -36,17 +39,23 @@ public class MortgageCalculatorDialogue implements Dialogue {
         
         System.out.print(RESULT_MESSAGE);
         double monthlyPayment = mortgage.сalculate(principal, annualInterest, years);
-        
         String monthlyPaymentFormatted = NumberFormat.getCurrencyInstance().format(monthlyPayment);
+        
         System.out.println(monthlyPaymentFormatted);
         System.out.println();
+        
+        double principalFormatted = principal;        
+        StringBuilder mortgageAmortizationTable = mortgageAmortization.printAmortizationTable(monthlyPayment, principalFormatted, 
+                annualInterest, years);
+        
+        System.out.println(mortgageAmortizationTable);
         
         scanner.nextLine();
     }
     
     private void printTitle() {
         System.out.println(TITLE_MESSAGE);
-        System.out.println(HYPHEN_SYMBOL);
-    }            
+        System.out.println(HYPHEN_SYMBOL); 
+    }   
 }
 
