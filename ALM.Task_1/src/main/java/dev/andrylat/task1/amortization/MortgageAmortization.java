@@ -28,18 +28,12 @@ public class MortgageAmortization implements Amortization {
             String endingBalanceFormatted = NumberFormat.getCurrencyInstance().format(endingBalance);
             
             amortizationTable
-                .append("Month: ")
-                .append(month).append(" ")
-                .append("Startingbalance: ")
-                .append(startingBalanceFormatted).append(" ")
-                .append("Monthly Payment: ")
-                .append(monthlyPaymentFormatted).append(" ")
-                .append("Interest: ")
-                .append(interestFormatted).append(" ")
-                .append("Principal: ")
-                .append(principalFormatted).append(" ")
-                .append("Endingbalance: ")
-                .append(endingBalanceFormatted).append("\n");
+                .append("Month: ").append(month).append(" ")
+                .append("Startingbalance: ").append(startingBalanceFormatted).append(" ")
+                .append("Monthly Payment: ").append(monthlyPaymentFormatted).append(" ")
+                .append("Interest: ").append(interestFormatted).append(" ")
+                .append("Principal: ").append(principalFormatted).append(" ")
+                .append("Endingbalance: ").append(endingBalanceFormatted).append("\n");
             
             loan = endingBalance;
         }
