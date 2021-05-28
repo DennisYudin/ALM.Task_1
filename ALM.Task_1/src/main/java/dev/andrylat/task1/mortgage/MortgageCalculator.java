@@ -5,7 +5,7 @@ public class MortgageCalculator implements Loan {
     private static final byte MONTHS_IN_YEAR = 12;  
     
     @Override
-    public double сalculate(int principal, float annualInterest, byte years) {
+    public double calculate(int principal, float annualInterest, byte years) {
         
         float monthlyInterest = getMonthlyInterest(annualInterest);
         short numberOfPayment = getNumberOfPayments(years);

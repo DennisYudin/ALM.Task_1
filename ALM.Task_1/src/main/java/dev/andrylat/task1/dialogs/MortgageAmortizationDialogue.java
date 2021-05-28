@@ -3,11 +3,11 @@ package dev.andrylat.task1.dialogs;
 import java.text.NumberFormat;
 import java.util.Scanner;
 
-import dev.andrylat.task1.amortization.Amortization;
-import dev.andrylat.task1.amortization.MortgageAmortization;
 import dev.andrylat.task1.console.Console;
 import dev.andrylat.task1.mortgage.Loan;
+import dev.andrylat.task1.mortgage.MortgageAmortizationTable;
 import dev.andrylat.task1.mortgage.MortgageCalculator;
+import dev.andrylat.task1.mortgage.Table;
 
 public class MortgageAmortizationDialogue implements Dialogue {
     private static final String TITLE_MESSAGE = "MORTGAGE AMORTIZATION";
@@ -23,7 +23,7 @@ public class MortgageAmortizationDialogue implements Dialogue {
     private static final int MAX_PRINCIPAL_VALUE = 100_000_000;  
     
     private Loan mortgage = new MortgageCalculator();
-    private Amortization mortgageAmortization = new MortgageAmortization();
+    private Table amortizationTable = new MortgageAmortizationTable();
     private Console console = new Console();
     
     @Override
@@ -38,14 +38,14 @@ public class MortgageAmortizationDialogue implements Dialogue {
         System.out.println();
         
         System.out.print(RESULT_MESSAGE);
-        double monthlyPayment = mortgage.сalculate(principal, annualInterest, years);
+        double monthlyPayment = mortgage.calculate(principal, annualInterest, years);
         String monthlyPaymentFormatted = NumberFormat.getCurrencyInstance().format(monthlyPayment);
         
         System.out.println(monthlyPaymentFormatted);
         System.out.println();
         
         double principalFormatted = principal;        
-        StringBuilder mortgageAmortizationTable = mortgageAmortization.printAmortizationTable(monthlyPayment, principalFormatted, 
+        StringBuilder mortgageAmortizationTable = amortizationTable.printTable(monthlyPayment, principalFormatted, 
                 annualInterest, years);
         
         System.out.println(mortgageAmortizationTable);

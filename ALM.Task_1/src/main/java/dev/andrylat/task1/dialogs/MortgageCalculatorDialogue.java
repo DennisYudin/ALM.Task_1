@@ -35,7 +35,7 @@ public class MortgageCalculatorDialogue implements Dialogue {
         System.out.println();
         
         System.out.print(RESULT_MESSAGE);
-        double monthlyPayment = mortgage.сalculate(principal, annualInterest, years);
+        double monthlyPayment = mortgage.calculate(principal, annualInterest, years);
         
         String monthlyPaymentFormatted = NumberFormat.getCurrencyInstance().format(monthlyPayment);
         System.out.println(monthlyPaymentFormatted);

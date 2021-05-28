@@ -1,14 +1,14 @@
-package dev.andrylat.task1.amortization;
+package dev.andrylat.task1.mortgage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class MortgageAmortizationTest {
-    Amortization mortgageAmortization = new MortgageAmortization();
+class MortgageAmortizationTableTest {
+    Table amortizationTable = new MortgageAmortizationTable();
     
     @Test
-    void printAmortizationTable_ShouldPrintAmortizationTable_WhenInputIs() {
+    void printTable_ShouldPrintAmortizationTable_WhenInputIs() {
         
         StringBuilder expected = new StringBuilder();
         
@@ -42,7 +42,7 @@ class MortgageAmortizationTest {
         byte years = 2;
         double monthlyPayment = 599.55;
                     
-        StringBuilder actual = mortgageAmortization.printAmortizationTable(monthlyPayment, principal, annualInterest, years);
+        StringBuilder actual = amortizationTable.printTable(monthlyPayment, principal, annualInterest, years);
         
         assertEquals(expected.toString(), actual.toString());   
     }    

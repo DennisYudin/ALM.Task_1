@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardValidator implements Validator {
-    private static final String SYMBOL_SPACE = "\\s+";
+    private static final String FIND_ANY_WHITESPACE_CHAR_REGEX = "\\s+";
     private static final int CARD_LENGTH = 16;
     private static final int MAX_EVEN_NUMBER = 9;
-    private static final String REGEX_CARD_NUMBER = "[0-9]+";
+    private static final String FIND_ALL_DIGITS_REGEX = "[0-9]+";
     private static final String LENGTH_ERROR_MESSAGE = "Length should be 16 symbols";
     private static final String DIGITS_ERROR_MESSAGE = "Number should contain only digits";
     private static final String PAYMENT_SYSTEM_ERROR_MESSAGE = "Payment system can't be determine";    
@@ -17,7 +17,7 @@ public class CardValidator implements Validator {
         
         List<String> validateResultMessages = new ArrayList<>();
         
-        cardNumber = cardNumber.replaceAll(SYMBOL_SPACE, "");
+        cardNumber = cardNumber.replaceAll(FIND_ANY_WHITESPACE_CHAR_REGEX, "");
         
         validateResultMessages.addAll(validateForLength(cardNumber));
         validateResultMessages.addAll(validateForDigits(cardNumber));
@@ -40,7 +40,7 @@ public class CardValidator implements Validator {
         
         List<String> errors = new ArrayList<>();
         
-        if (!input.matches(REGEX_CARD_NUMBER)) {
+        if (!input.matches(FIND_ALL_DIGITS_REGEX)) {
             errors.add(DIGITS_ERROR_MESSAGE);
         }
         return errors;
