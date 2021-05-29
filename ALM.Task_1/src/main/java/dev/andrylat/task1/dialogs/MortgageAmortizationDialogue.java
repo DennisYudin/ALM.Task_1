@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.Scanner;
 
 import dev.andrylat.task1.console.Console;
+import dev.andrylat.task1.domain.Data;
 import dev.andrylat.task1.mortgage.Loan;
 import dev.andrylat.task1.mortgage.MortgageAmortizationTable;
 import dev.andrylat.task1.mortgage.MortgageCalculator;
@@ -12,9 +13,9 @@ import dev.andrylat.task1.mortgage.Table;
 public class MortgageAmortizationDialogue implements Dialogue {
     private static final String TITLE_MESSAGE = "MORTGAGE AMORTIZATION";
     private static final String HYPHEN_SYMBOL = "---------------------";
-    private static final String PRINCIPAL_MESSAGE = "Principal (enter value from 1K up to 100M): ";
-    private static final String ANNUAL_INTEREST_MESSAGE = "Annual interest rate (enter value from 1 up to 30): ";
-    private static final String PERIOD_MESSAGE = "Period (Years) (enter value from 1 up to 30): ";
+    private static final String PRINCIPAL_INPUT_MESSAGE = "Principal (enter value from 1K up to 100M): ";
+    private static final String ANNUAL_INTEREST_INPUT_MESSAGE = "Annual interest rate (enter value from 1 up to 30): ";
+    private static final String PERIOD_INPUT_MESSAGE = "Period (Years) (enter value from 1 up to 30): ";
     private static final String RESULT_MESSAGE = "Your monthly payment will be: ";
     
     private static final byte MIN_ALLOWED_VALUE = 1;
@@ -31,9 +32,9 @@ public class MortgageAmortizationDialogue implements Dialogue {
         
         printTitle();
         
-        int principal = (int)console.readNumber(PRINCIPAL_MESSAGE, MIN_PRINCIPAL_VALUE, MAX_PRINCIPAL_VALUE, scanner);
-        float annualInterest = (float)console.readNumber(ANNUAL_INTEREST_MESSAGE, MIN_ALLOWED_VALUE, MAX_ALLOWED_VALUE, scanner);
-        byte years = (byte)console.readNumber(PERIOD_MESSAGE, MIN_ALLOWED_VALUE, MAX_ALLOWED_VALUE, scanner);
+        int principal = (int)console.readNumber(PRINCIPAL_INPUT_MESSAGE, MIN_PRINCIPAL_VALUE, MAX_PRINCIPAL_VALUE, scanner);
+        float annualInterest = (float)console.readNumber(ANNUAL_INTEREST_INPUT_MESSAGE, MIN_ALLOWED_VALUE, MAX_ALLOWED_VALUE, scanner);
+        byte years = (byte)console.readNumber(PERIOD_INPUT_MESSAGE, MIN_ALLOWED_VALUE, MAX_ALLOWED_VALUE, scanner);
         
         System.out.println();
         
@@ -44,9 +45,11 @@ public class MortgageAmortizationDialogue implements Dialogue {
         System.out.println(monthlyPaymentFormatted);
         System.out.println();
         
-        double principalFormatted = principal;        
-        StringBuilder mortgageAmortizationTable = amortizationTable.printTable(monthlyPayment, principalFormatted, 
-                annualInterest, years);
+        double principalFormatted = principal;
+        
+        Data data = new Data(monthlyPayment, principalFormatted, annualInterest, years);
+        
+        StringBuilder mortgageAmortizationTable = amortizationTable.printTable(data);
         
         System.out.println(mortgageAmortizationTable);
         

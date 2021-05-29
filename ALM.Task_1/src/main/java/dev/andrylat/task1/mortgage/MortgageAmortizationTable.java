@@ -2,14 +2,21 @@ package dev.andrylat.task1.mortgage;
 
 import java.text.NumberFormat;
 
+import dev.andrylat.task1.domain.Data;
+
 public class MortgageAmortizationTable implements Table {
     private static final byte MONTHS_IN_YEAR = 12;
     
     private Amortization mortgageAmortization = new MortgageAmortization();
+    private NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
     
     @Override
-    public StringBuilder printTable(double paymentInMonth, double loan, 
-            float annualInterestRate, byte amountYears) {
+    public StringBuilder printTable(Data dataObject) {
+        
+        double paymentInMonth = dataObject.getPaymentInMonth();
+        double loan = dataObject.getLoan();
+        float annualInterestRate = dataObject.getAnnualInterestRate();
+        byte amountYears = dataObject.getAmountYears();
         
         StringBuilder amortizationTable = new StringBuilder();
         
@@ -23,25 +30,23 @@ public class MortgageAmortizationTable implements Table {
                 endingBalance = 0;
             }
             
-            String startingBalanceFormatted = NumberFormat.getCurrencyInstance().format(loan);
-            String monthlyPaymentFormatted = NumberFormat.getCurrencyInstance().format(paymentInMonth);
-            String interestFormatted = NumberFormat.getCurrencyInstance().format(interest);
-            String principalFormatted = NumberFormat.getCurrencyInstance().format(principal);
-            String endingBalanceFormatted = NumberFormat.getCurrencyInstance().format(endingBalance);
+            String startingBalanceFormatted = numberFormat.format(loan);
+            String monthlyPaymentFormatted = numberFormat.format(paymentInMonth);
+            String interestFormatted = numberFormat.format(interest);
+            String principalFormatted = numberFormat.format(principal);
+            String endingBalanceFormatted = numberFormat.format(endingBalance);
             
-            amortizationTable
-                .append("Month: ").append(month).append(" ")
-                .append("Startingbalance: ").append(startingBalanceFormatted).append(" ")
-                .append("Monthly Payment: ").append(monthlyPaymentFormatted).append(" ")
-                .append("Interest: ").append(interestFormatted).append(" ")
-                .append("Principal: ").append(principalFormatted).append(" ")
-                .append("Endingbalance: ").append(endingBalanceFormatted).append("\n");
+            amortizationTable.append("Month: ").append(month).append(" ").append("Startingbalance: ")
+                    .append(startingBalanceFormatted).append(" ").append("Monthly Payment: ")
+                    .append(monthlyPaymentFormatted).append(" ").append("Interest: ").append(interestFormatted)
+                    .append(" ").append("Principal: ").append(principalFormatted).append(" ").append("Endingbalance: ")
+                    .append(endingBalanceFormatted).append("\n");
             
             loan = endingBalance;
         }
         amortizationTable.deleteCharAt(amortizationTable.length() - 1);
         
         return amortizationTable;
-    }   
+    }
 }
 

@@ -1,8 +1,9 @@
 package dev.andrylat.task1.mortgage;
 
+import dev.andrylat.task1.domain.Data;
+
 public interface Table {
     
-    StringBuilder printTable(double paymentInMonth, double loan, 
-            float annualInterestRate, byte amountYears);
+    StringBuilder printTable(Data dataObject);
 }
 

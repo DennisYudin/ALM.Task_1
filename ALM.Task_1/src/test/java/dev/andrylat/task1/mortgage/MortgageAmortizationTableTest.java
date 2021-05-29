@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import dev.andrylat.task1.domain.Data;
+
 class MortgageAmortizationTableTest {
     Table amortizationTable = new MortgageAmortizationTable();
     
@@ -41,8 +43,10 @@ class MortgageAmortizationTableTest {
         float annualInterest = 6;
         byte years = 2;
         double monthlyPayment = 599.55;
+        
+        Data data = new Data(monthlyPayment, principal, annualInterest, years);
                     
-        StringBuilder actual = amortizationTable.printTable(monthlyPayment, principal, annualInterest, years);
+        StringBuilder actual = amortizationTable.printTable(data);
         
         assertEquals(expected.toString(), actual.toString());   
     }    
