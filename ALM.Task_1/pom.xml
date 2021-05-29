@@ -5,6 +5,7 @@
     <groupId>andrylat.dev</groupId>
     <artifactId>ALM.Task_1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>Application</name>
     <description>Application for card number validation and payment system resolving and also calculate mortgage.</description>
     <properties>
@@ -38,7 +39,7 @@
                     <addClasspath>true</addClasspath>
                     <classpathPrefix>libs/</classpathPrefix>
                         <mainClass>
-                            dev.andrylat.task1.CardValidatorApp
+                            dev.andrylat.task1.Application
                         </mainClass>
                     </manifest>
                     </archive>
@@ -60,5 +61,10 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <modules>
+    	<module>Core</module>
+    	<module>Console</module>
+    	<module>WebService</module>
+    </modules>
 </project>
 
