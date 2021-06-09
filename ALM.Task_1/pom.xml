@@ -5,7 +5,9 @@
     <groupId>andrylat.dev</groupId>
     <artifactId>ALM.Task_1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    
     <packaging>pom</packaging>
+    
     <name>Application</name>
     <description>Application for card number validation and payment system resolving and also calculate mortgage.</description>
     <properties>

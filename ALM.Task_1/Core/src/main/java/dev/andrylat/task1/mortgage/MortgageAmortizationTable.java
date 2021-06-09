@@ -36,11 +36,12 @@ public class MortgageAmortizationTable implements Table {
             String principalFormatted = numberFormat.format(principal);
             String endingBalanceFormatted = numberFormat.format(endingBalance);
             
-            amortizationTable.append("Month: ").append(month).append(" ").append("Startingbalance: ")
-                    .append(startingBalanceFormatted).append(" ").append("Monthly Payment: ")
-                    .append(monthlyPaymentFormatted).append(" ").append("Interest: ").append(interestFormatted)
-                    .append(" ").append("Principal: ").append(principalFormatted).append(" ").append("Endingbalance: ")
-                    .append(endingBalanceFormatted).append("\n");
+            amortizationTable.append("Month: ").append(month).append(" ")
+                .append("Startingbalance: ").append(startingBalanceFormatted).append(" ")
+                .append("Monthly payment: ").append(monthlyPaymentFormatted).append(" ")
+                .append("Interest: ").append(interestFormatted).append(" ")
+                .append("Principal: ").append(principalFormatted).append(" ")
+                .append("Endingbalance: ").append(endingBalanceFormatted).append("\n");
             
             loan = endingBalance;
         }
