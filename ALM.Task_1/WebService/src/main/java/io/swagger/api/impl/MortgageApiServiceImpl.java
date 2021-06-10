@@ -3,10 +3,10 @@ package io.swagger.api.impl;
 import io.swagger.api.*;
 import io.swagger.model.*;
 
-import io.swagger.model.Amortization;
-import io.swagger.model.Calculator;
-import io.swagger.model.MortgageAmortizationResult;
-import io.swagger.model.MortgageCaculatorResult;
+import io.swagger.model.AmortizationRequest;
+import io.swagger.model.CalculatorRequest;
+import io.swagger.model.MortgageAmortizationResponse;
+import io.swagger.model.MortgageCaculatorResponse;
 
 import java.util.Map;
 import java.util.ArrayList;
@@ -17,20 +17,16 @@ import java.io.InputStream;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 
-import dev.andrylat.task1.domain.Data;
+import dev.andrylat.task1.mortgage.Amortization;
 import dev.andrylat.task1.mortgage.Loan;
 import dev.andrylat.task1.mortgage.MortgageAmortization;
-import dev.andrylat.task1.mortgage.MortgageAmortizationTable;
 import dev.andrylat.task1.mortgage.MortgageCalculator;
-import dev.andrylat.task1.mortgage.Table;
 
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.validation.constraints.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-03T07:36:36.973Z[GMT]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-10T06:09:19.388Z[GMT]")
 public class MortgageApiServiceImpl extends MortgageApiService {
     private static final byte MIN_ALLOWED_VALUE = 1;
     private static final byte MAX_ALLOWED_VALUE = 30;
@@ -45,10 +41,9 @@ public class MortgageApiServiceImpl extends MortgageApiService {
     private static final int MONTHS_IN_YEAR = 12;
     
     @Override
-    public Response mortgageAmortizationPost(Amortization body, SecurityContext securityContext)
+    public Response mortgageAmortizationPost(AmortizationRequest body, SecurityContext securityContext)
             throws NotFoundException {
-        Loan mortgage = new MortgageCalculator();
-        MortgageAmortizationResult mortgageAmortizationResult = new MortgageAmortizationResult();        
+        Loan mortgage = new MortgageCalculator();       
         
         int loan = body.getPrincipal();
         float annualInterest = body.getAnnualInterest();
@@ -58,32 +53,48 @@ public class MortgageApiServiceImpl extends MortgageApiService {
         
         if (errorMessages.isEmpty()) {
             double monthlyPayment = mortgage.calculate(loan, annualInterest, years);
-            double principalFormatted = loan;
+            double loanFormatted = loan;
             
-            List<MortgageAmortizationResultMortgageamortization> amortizationTable = calculateAmortization(
-                    principalFormatted, annualInterest, years, monthlyPayment);
+            List<MortgageAmortizationResponseMortgageamortization> amortizationData = calculateAmortization(
+                    loanFormatted, annualInterest, years, monthlyPayment);
             
-            mortgageAmortizationResult.setProcessingResult(true);
-            mortgageAmortizationResult.setErrorMessages(null);
-            mortgageAmortizationResult.setMortgageAmortization(amortizationTable);
+            MortgageAmortizationResponse successfulResponse = createValidResponse(amortizationData);
             
-            return Response.ok(mortgageAmortizationResult.toString()).build();
+            return Response.ok(successfulResponse.toString()).build();
         } else {
-            mortgageAmortizationResult.setProcessingResult(false);
-            mortgageAmortizationResult.setErrorMessages(errorMessages);
-            mortgageAmortizationResult.setMortgageAmortization(null);
+            MortgageAmortizationResponse unsuccessfulResponse = createInvalidResponse(errorMessages);
             
-            return Response.ok(mortgageAmortizationResult.toString()).build();
+            return Response.ok(unsuccessfulResponse.toString()).build();
         }
     }
     
-    private List<MortgageAmortizationResultMortgageamortization> calculateAmortization(double credit, float rate,
+    private MortgageAmortizationResponse createValidResponse(List<MortgageAmortizationResponseMortgageamortization> input) {
+        MortgageAmortizationResponse mortgageAmortizationResponse = new MortgageAmortizationResponse();
+        
+        mortgageAmortizationResponse.setProcessingResult(true);
+        mortgageAmortizationResponse.setErrorMessages(null);
+        mortgageAmortizationResponse.setMortgageAmortization(input);
+        
+        return mortgageAmortizationResponse;
+    }
+    
+    private MortgageAmortizationResponse createInvalidResponse(List<String> messages) {
+        MortgageAmortizationResponse mortgageAmortizationResponse = new MortgageAmortizationResponse();
+        
+        mortgageAmortizationResponse.setProcessingResult(false);
+        mortgageAmortizationResponse.setErrorMessages(messages);
+        mortgageAmortizationResponse.setMortgageAmortization(null);
+        
+        return mortgageAmortizationResponse;
+    }
+    
+    private List<MortgageAmortizationResponseMortgageamortization> calculateAmortization(double credit, float rate,
             byte paymentTerm, double payment) {
-        List<MortgageAmortizationResultMortgageamortization> list = new ArrayList<>();
-        MortgageAmortization mortgageAmortization = new MortgageAmortization();
+        List<MortgageAmortizationResponseMortgageamortization> list = new ArrayList<>();
+        Amortization mortgageAmortization = new MortgageAmortization();
         
         for (short month = 1; month <= paymentTerm * MONTHS_IN_YEAR; month++) {
-            MortgageAmortizationResultMortgageamortization amortization = new MortgageAmortizationResultMortgageamortization();
+            MortgageAmortizationResponseMortgageamortization amortization = new MortgageAmortizationResponseMortgageamortization();
             
             double interest = mortgageAmortization.getInterest(credit, rate);
             double principal = mortgageAmortization.calculatePrincipal(payment, credit, rate);
@@ -118,9 +129,9 @@ public class MortgageApiServiceImpl extends MortgageApiService {
     }
     
     @Override
-    public Response mortgageCalculatorPost(Calculator body, SecurityContext securityContext) throws NotFoundException {
+    public Response mortgageCalculatorPost(CalculatorRequest body, SecurityContext securityContext)
+            throws NotFoundException {
         Loan mortgage = new MortgageCalculator();
-        MortgageCaculatorResult mortgageCaculatorResult = new MortgageCaculatorResult();
         
         int principal = body.getPrincipal();
         float annualInterest = body.getAnnualInterest();
@@ -132,18 +143,34 @@ public class MortgageApiServiceImpl extends MortgageApiService {
             double monthlyPayment = mortgage.calculate(principal, annualInterest, years);
             double monthlyPaymentRounded = roundDoubleValue(monthlyPayment);
             
-            mortgageCaculatorResult.setProcessingResult(true);
-            mortgageCaculatorResult.setErrorMessages(null);
-            mortgageCaculatorResult.setMonthlyPayment(monthlyPaymentRounded);
+            MortgageCaculatorResponse successfulResponse = createSuccessfulResponse(monthlyPaymentRounded);
             
-            return Response.ok(mortgageCaculatorResult.toString()).build();
+            return Response.ok(successfulResponse.toString()).build();
         } else {
-            mortgageCaculatorResult.setProcessingResult(false);
-            mortgageCaculatorResult.setErrorMessages(errorMessages);
-            mortgageCaculatorResult.setMonthlyPayment(null);
+            MortgageCaculatorResponse unsuccessfulResponse = createUnsuccessfulResponse(errorMessages);
             
-            return Response.ok(mortgageCaculatorResult.toString()).build();
+            return Response.ok(unsuccessfulResponse.toString()).build();
         }
+    }
+    
+    private MortgageCaculatorResponse createSuccessfulResponse(double payment) {
+        MortgageCaculatorResponse mortgageCaculatorResponse = new MortgageCaculatorResponse();
+        
+        mortgageCaculatorResponse.setProcessingResult(true);
+        mortgageCaculatorResponse.setErrorMessages(null);
+        mortgageCaculatorResponse.setMonthlyPayment(payment);
+        
+        return mortgageCaculatorResponse;
+    }
+    
+    private MortgageCaculatorResponse createUnsuccessfulResponse(List<String> messages) {
+        MortgageCaculatorResponse mortgageCaculatorResponse = new MortgageCaculatorResponse();
+        
+        mortgageCaculatorResponse.setProcessingResult(false);
+        mortgageCaculatorResponse.setErrorMessages(messages);
+        mortgageCaculatorResponse.setMonthlyPayment(null);
+        
+        return mortgageCaculatorResponse;
     }
     
     private List<String> validateInput(int loan, float interest, byte period) {
@@ -166,3 +193,4 @@ public class MortgageApiServiceImpl extends MortgageApiService {
         return inputRounded;
     }
 }
+

@@ -3,11 +3,10 @@ package io.swagger.api.impl;
 import io.swagger.api.*;
 import io.swagger.model.*;
 
-import io.swagger.model.CardValidation;
-import io.swagger.model.CardValidationResult;
+import io.swagger.model.CardValidationRequest;
+import io.swagger.model.CardValidationResponse;
 
 import java.util.Map;
-import java.util.HashMap;
 import java.util.List;
 import io.swagger.api.NotFoundException;
 
@@ -25,32 +24,49 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.validation.constraints.*;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-03T07:36:36.973Z[GMT]")public class CardnumberApiServiceImpl extends CardnumberApiService {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-10T06:09:19.388Z[GMT]")
+public class CardnumberApiServiceImpl extends CardnumberApiService {
     @Override
-    public Response cardnumberValidationPost(CardValidation body, SecurityContext securityContext) throws NotFoundException {         
+    public Response cardnumberValidationPost(CardValidationRequest body, SecurityContext securityContext)
+            throws NotFoundException {
         Validator cardValidator = new CardValidator();
-        Resolver<PaymentSystem, String> paymentSystemResolver = new PaymentSystemResolver();
-        CardValidationResult cardValidationResult = new CardValidationResult();
         
         String cardNumber = body.getCardNumber();
-         
-        List<String> errors = cardValidator.validate(cardNumber);                
+        
+        List<String> errors = cardValidator.validate(cardNumber);
         
         if (errors.isEmpty()) {
-            cardValidationResult.setProcessingResult(true);
+            CardValidationResponse successfulResponse = createSuccessfulResponse(cardNumber);
             
-            PaymentSystem paymentSystem = paymentSystemResolver.resolve(cardNumber);
-            String paymentSystemName = paymentSystem.getName();
-            
-            cardValidationResult.setErrorMessages(null);
-            cardValidationResult.setValidationSystemName(paymentSystemName);            
+            return Response.ok(successfulResponse.toString()).build();
         } else {
-            cardValidationResult.setProcessingResult(false);
-            cardValidationResult.setErrorMessages(errors);
-            cardValidationResult.setValidationSystemName(null);
-        }                
-        return Response.ok(cardValidationResult.toString()).build();
+            CardValidationResponse unsuccessfulResponse = createUnsuccessfulResponse(errors);
+            
+            return Response.ok(unsuccessfulResponse.toString()).build();
+        }
+    }
+    
+    private CardValidationResponse createSuccessfulResponse(String input) {
+        Resolver<PaymentSystem, String> paymentSystemResolver = new PaymentSystemResolver();
+        CardValidationResponse cardValidationResponse = new CardValidationResponse();
+        
+        PaymentSystem paymentSystem = paymentSystemResolver.resolve(input);
+        String paymentSystemName = paymentSystem.getName();
+        
+        cardValidationResponse.setProcessingResult(true);
+        cardValidationResponse.setErrorMessages(null);
+        cardValidationResponse.setValidationSystemName(paymentSystemName);
+        
+        return cardValidationResponse;
+    }
+    
+    private CardValidationResponse createUnsuccessfulResponse(List<String> messages) {
+        CardValidationResponse cardValidationResponse = new CardValidationResponse();
+        
+        cardValidationResponse.setProcessingResult(false);
+        cardValidationResponse.setErrorMessages(messages);
+        cardValidationResponse.setValidationSystemName(null);
+        
+        return cardValidationResponse;
     }
 }
-
-

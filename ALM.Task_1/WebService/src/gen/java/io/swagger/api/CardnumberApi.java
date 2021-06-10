@@ -14,8 +14,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import io.swagger.model.CardValidation;
-import io.swagger.model.CardValidationResult;
+import io.swagger.model.CardValidationRequest;
+import io.swagger.model.CardValidationResponse;
 
 import java.util.Map;
 import java.util.List;
@@ -37,7 +37,7 @@ import javax.validation.constraints.*;
 @Path("/cardnumber")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-03T07:36:36.973Z[GMT]")public class CardnumberApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-10T06:09:19.388Z[GMT]")public class CardnumberApi  {
    private final CardnumberApiService delegate;
 
    public CardnumberApi(@Context ServletConfig servletContext) {
@@ -67,10 +67,10 @@ import javax.validation.constraints.*;
     @Produces({ "application/json" })
     @Operation(summary = "", description = "", tags={ "Card validation" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Valid", content = @Content(schema = @Schema(implementation = CardValidationResult.class))),
+        @ApiResponse(responseCode = "200", description = "Valid", content = @Content(schema = @Schema(implementation = CardValidationResponse.class))),
         
-        @ApiResponse(responseCode = "400", description = "Invalid", content = @Content(schema = @Schema(implementation = CardValidationResult.class))) })
-    public Response cardnumberValidationPost(@Parameter(in = ParameterIn.DEFAULT, description = "Check card number and determine payment system. User **must** enter card number which consist is 16 digits. Allowed to enter card number with spaces between each four digits." ) CardValidation body
+        @ApiResponse(responseCode = "400", description = "Invalid", content = @Content(schema = @Schema(implementation = CardValidationResponse.class))) })
+    public Response cardnumberValidationPost(@Parameter(in = ParameterIn.DEFAULT, description = "Check card number and determine payment system. User **must** enter card number which consist is 16 digits. Allowed to enter card number with spaces between each four digits." ) CardValidationRequest body
 
 ,@Context SecurityContext securityContext)
     throws NotFoundException {

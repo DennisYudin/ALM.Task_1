@@ -14,10 +14,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import io.swagger.model.Amortization;
-import io.swagger.model.Calculator;
-import io.swagger.model.MortgageAmortizationResult;
-import io.swagger.model.MortgageCaculatorResult;
+import io.swagger.model.AmortizationRequest;
+import io.swagger.model.CalculatorRequest;
+import io.swagger.model.MortgageAmortizationResponse;
+import io.swagger.model.MortgageCaculatorResponse;
 
 import java.util.Map;
 import java.util.List;
@@ -39,7 +39,7 @@ import javax.validation.constraints.*;
 @Path("/mortgage")
 
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-03T07:36:36.973Z[GMT]")public class MortgageApi  {
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaJerseyServerCodegen", date = "2021-06-10T06:09:19.388Z[GMT]")public class MortgageApi  {
    private final MortgageApiService delegate;
 
    public MortgageApi(@Context ServletConfig servletContext) {
@@ -69,10 +69,10 @@ import javax.validation.constraints.*;
     @Produces({ "application/json" })
     @Operation(summary = "", description = "", tags={ "Amortization" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Successful response", content = @Content(schema = @Schema(implementation = MortgageAmortizationResult.class))),
+        @ApiResponse(responseCode = "200", description = "Successful response", content = @Content(schema = @Schema(implementation = MortgageAmortizationResponse.class))),
         
-        @ApiResponse(responseCode = "400", description = "Unsuccessful response", content = @Content(schema = @Schema(implementation = MortgageAmortizationResult.class))) })
-    public Response mortgageAmortizationPost(@Parameter(in = ParameterIn.DEFAULT, description = "Calculate mortgage amortization. User **must** enter principal from 1K up to 100M, annual interest rate from 1 up to 30 percent and period in years from 1 up to 30." ) Amortization body
+        @ApiResponse(responseCode = "400", description = "Unsuccessful response", content = @Content(schema = @Schema(implementation = MortgageAmortizationResponse.class))) })
+    public Response mortgageAmortizationPost(@Parameter(in = ParameterIn.DEFAULT, description = "Calculate mortgage amortization. User **must** enter principal from 1K up to 100M, annual interest rate from 1 up to 30 percent and period in years from 1 up to 30." ) AmortizationRequest body
 
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
@@ -84,10 +84,10 @@ import javax.validation.constraints.*;
     @Produces({ "application/json" })
     @Operation(summary = "", description = "", tags={ "Mortgage" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Successful response", content = @Content(schema = @Schema(implementation = MortgageCaculatorResult.class))),
+        @ApiResponse(responseCode = "200", description = "Successful response", content = @Content(schema = @Schema(implementation = MortgageCaculatorResponse.class))),
         
-        @ApiResponse(responseCode = "400", description = "Unsuccessful response", content = @Content(schema = @Schema(implementation = MortgageCaculatorResult.class))) })
-    public Response mortgageCalculatorPost(@Parameter(in = ParameterIn.DEFAULT, description = "Calculate monthly mortgage payment. User **must** enter principal from 1K up to 100M, annual interest rate from 1 up to 30 percent and period in years from 1 up to 30." ) Calculator body
+        @ApiResponse(responseCode = "400", description = "Unsuccessful response", content = @Content(schema = @Schema(implementation = MortgageCaculatorResponse.class))) })
+    public Response mortgageCalculatorPost(@Parameter(in = ParameterIn.DEFAULT, description = "Calculate monthly mortgage payment. User **must** enter principal from 1K up to 100M, annual interest rate from 1 up to 30 percent and period in years from 1 up to 30." ) CalculatorRequest body
 
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
