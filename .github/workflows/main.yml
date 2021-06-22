@@ -23,4 +23,4 @@ jobs:
         run: mvn clean package --file ALM.Task_1/pom.xml -Dmaven.test.skip=true
       
       - name: Maven Verify
-        run: mvn -B clean verify --file ALM.Task_1/pom.xml
+        run: mvn -B clean verify --file ALM.Task_1/pom.xml -Dmaven.test.skip=true
