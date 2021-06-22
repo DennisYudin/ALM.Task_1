@@ -13,7 +13,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>andrylat.dev</groupId>
-			<artifactId>CoreTest</artifactId>
+			<artifactId>Core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
