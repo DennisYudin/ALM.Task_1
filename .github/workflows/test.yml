@@ -20,7 +20,7 @@ jobs:
           java-version: 10.0.2
       
       - name: Maven Package
-        run: mvn clean package
+        run: mvn clean package --file ALM.Task_1/pom.xml
       
       - name: Maven Verify
         run: mvn -B clean verify
