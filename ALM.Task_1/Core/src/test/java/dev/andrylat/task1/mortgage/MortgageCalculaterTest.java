@@ -10,20 +10,20 @@ import org.junit.jupiter.api.Test;
 class MortgageCalculaterTest {
     private Loan mortgage = new MortgageCalculator();
     
-    @Test
-    void calculate_ShouldCalculateMonthlyMortgagePayment_WhenInputIsPrincipalAnnualInterestAndYears() {
-        
-        int principal = 100_000;
-        float annualInterest = 6;
-        byte years = 30;
-        
-        double monthlyPayment = mortgage.calculate(principal, annualInterest, years);
-        
-        String actual = NumberFormat.getCurrencyInstance().format(monthlyPayment);
-        String expected = "599,55 ₽";
-        
-        assertEquals(expected, actual);
-    }
+//    @Test
+//    void calculate_ShouldCalculateMonthlyMortgagePayment_WhenInputIsPrincipalAnnualInterestAndYears() {
+//        
+//        int principal = 100_000;
+//        float annualInterest = 6;
+//        byte years = 30;
+//        
+//        double monthlyPayment = mortgage.calculate(principal, annualInterest, years);
+//        
+//        String actual = NumberFormat.getCurrencyInstance().format(monthlyPayment);
+//        String expected = "599,55 ₽";
+//        
+//        assertEquals(expected, actual);
+//    }
     
 //    @Test
 //    void calculate_ShouldThrowException_WhenInputIsIncorrectPrincipal() {
