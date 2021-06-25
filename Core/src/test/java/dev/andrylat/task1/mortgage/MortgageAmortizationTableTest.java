@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import dev.andrylat.task1.domain.Data;
 
 class MortgageAmortizationTableTest {
-    Table amortizationTable = new MortgageAmortizationTable();
+//    Table amortizationTable = new MortgageAmortizationTable();
     
 //    @Test
 //    void printTable_ShouldPrintAmortizationTable_WhenInputIs() {
@@ -49,6 +49,8 @@ class MortgageAmortizationTableTest {
 //        StringBuilder actual = amortizationTable.printTable(data);
 //        
 //        assertEquals(expected.toString(), actual.toString());   
-//    }    
+//    } 
+    
+    
 }
 
