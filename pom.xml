@@ -21,8 +21,6 @@
 		<sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
 		<sonar.organization>yudindennis</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<java.version>10.0.2</java.version>
-		<sonar.scanner.force-deprecated-java-version>true</sonar.scanner.force-deprecated-java-version>
 	</properties>
 
 	<profiles>
@@ -38,8 +36,6 @@
 				<sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
 				<sonar.organization>yudindennis</sonar.organization>
 				<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-				<java.version>10.0.2</java.version>
-				<sonar.scanner.force-deprecated-java-version>true</sonar.scanner.force-deprecated-java-version>
 			</properties>
 			<activation>
 				<activeByDefault>false</activeByDefault>
