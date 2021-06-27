@@ -28,9 +28,9 @@
 			<id>sonar</id>
 			<properties>
 				<sonar.sources>.</sonar.sources>
-				<sonar.inclusions>Core/src/main/java/**,src/main/resources/**</sonar.inclusions>
-				<sonar.inclusions>Console/src/main/java/**,src/main/resources/**</sonar.inclusions>
-				<sonar.inclusions>WebService/src/main/java/**,src/main/resources/**</sonar.inclusions>
+				<sonar.inclusions>AppCore/src/main/java/**,src/main/resources/**</sonar.inclusions>
+				<sonar.inclusions>ConsoleUI/src/main/java/**,src/main/resources/**</sonar.inclusions>
+				<sonar.inclusions>Webservice/src/main/java/**,src/main/resources/**</sonar.inclusions>
 				<sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>
 				<sonar.projectKey>DennisYudin_ALM.Task_1</sonar.projectKey>
 				<sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
