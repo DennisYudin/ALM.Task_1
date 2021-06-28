@@ -39,7 +39,7 @@ jobs:
           java-version: 11
 
       - name: SonarCloud Scan
-        run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dmaven.test.skip=true
+        run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -pl '!WebService'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
