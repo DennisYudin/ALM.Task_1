@@ -67,7 +67,7 @@
 			<uniqueVersion>false</uniqueVersion>
 			<id>github</id>
 			<name>ALM.TASK_1</name>
-			<url>https://maven.pkg.github.com/DennisYudin/banking-utilities-backend</url>
+			<url>https://maven.pkg.github.com/DennisYudin/ALM.Task_1</url>
 		</repository>
 	</distributionManagement>
 
