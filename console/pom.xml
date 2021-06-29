@@ -9,13 +9,13 @@
 		<version>1.1</version>
 	</parent>
 
-	<artifactId>Console</artifactId>
+	<artifactId>console</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>andrylat.dev</groupId>
-			<artifactId>Core</artifactId>
+			<artifactId>core</artifactId>
 			<version>1.1</version>
 		</dependency>
 	</dependencies>

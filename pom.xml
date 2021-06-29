@@ -156,9 +156,9 @@
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>Core</module>
-		<module>Console</module>
-		<module>WebService</module>
+		<module>core</module>
+		<module>console</module>
+		<module>webservice</module>
 	</modules>
 </project>
 
