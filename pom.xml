@@ -148,12 +148,7 @@
 			<version>${junit.platform.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-deploy-plugin</artifactId>
-			<version>3.0.0-M1</version>
-			<type>maven-plugin</type>
-		</dependency>
+
 	</dependencies>
 	<modules>
 		<module>core</module>
