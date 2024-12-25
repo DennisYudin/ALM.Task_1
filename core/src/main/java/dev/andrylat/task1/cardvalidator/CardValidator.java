@@ -15,15 +15,15 @@ public class CardValidator implements Validator {
     @Override               
     public List<String> validate(String cardNumber) {
         
-        List<String> validateResultMessages = new ArrayList<>();
+        List<String> resultMessages = new ArrayList<>();
         
         cardNumber = cardNumber.replaceAll(FIND_ANY_WHITESPACE_CHAR_REGEX, "");
         
-        validateResultMessages.addAll(validateForLength(cardNumber));
-        validateResultMessages.addAll(validateForDigits(cardNumber));
-        validateResultMessages.addAll(validateForLuhnAlgorithm(cardNumber));
+        resultMessages.addAll(validateForLength(cardNumber));
+        resultMessages.addAll(validateForDigits(cardNumber));
+        resultMessages.addAll(validateForLuhnAlgorithm(cardNumber));
         
-        return validateResultMessages;
+        return resultMessages;
     }
     
     private List<String> validateForLength(String input) {
